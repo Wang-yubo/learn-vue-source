@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">{{message}}</div>
+    <script src="src/Vue1.0.1.js"></script>
+    <script>
+        //如果你不保护起来,那么你在之前使用类似 Vue.config=1赋值语句就会使得后面的Vue.config不能正常使用
+        //Vue.config 存储的东西非常重要 需要保护起来 
+        //保护的方法是使用initGlobalAPI(Vue)这个方法
+        //自定义选项count的自定义策略函数
+        Vue.config.optionMergeStrategies.count = function(parentVal, childVal, vm) {
+            return childVal >= 99 ? childVal : 99
+        };
+        //* 自定义策略对象
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                message: "hello vue"
+            },
+            count: 9
+        })
+        console.log(vm.$options);
+    </script>
+</body>
+
+</html>
